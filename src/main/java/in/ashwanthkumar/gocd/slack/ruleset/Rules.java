@@ -1,20 +1,21 @@
 package in.ashwanthkumar.gocd.slack.ruleset;
 
-import com.thoughtworks.go.plugin.api.logging.Logger;
-import com.typesafe.config.Config;
-import in.ashwanthkumar.gocd.slack.PipelineListener;
-import in.ashwanthkumar.utils.collections.Lists;
-import in.ashwanthkumar.utils.func.Function;
-import in.ashwanthkumar.utils.func.Predicate;
-import in.ashwanthkumar.utils.lang.StringUtils;
-import in.ashwanthkumar.utils.lang.option.Option;
+import static in.ashwanthkumar.gocd.slack.ruleset.PipelineRule.merge;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
-import static in.ashwanthkumar.gocd.slack.ruleset.PipelineRule.merge;
+import com.thoughtworks.go.plugin.api.logging.Logger;
+import com.typesafe.config.Config;
+
+import in.ashwanthkumar.gocd.slack.PipelineListener;
+import in.ashwanthkumar.utils.collections.Lists;
+import in.ashwanthkumar.utils.func.Function;
+import in.ashwanthkumar.utils.func.Predicate;
+import in.ashwanthkumar.utils.lang.StringUtils;
+import in.ashwanthkumar.utils.lang.option.Option;
 
 public class Rules {
 
@@ -29,6 +30,7 @@ public class Rules {
     private String goAPIServerHost;
     private String goLogin;
     private String goPassword;
+    private String goAccessToken;
     private boolean displayConsoleLogLinks;
     private boolean displayMaterialChanges;
     private boolean processAllRules;
@@ -123,6 +125,15 @@ public class Rules {
         this.goLogin = goLogin;
         return this;
     }
+    
+    public String getGoAccessToken() {
+		return goAccessToken;
+	}
+    
+    public Rules setGoAccessToken(String goAccessToken) {
+		this.goAccessToken = goAccessToken;
+		return this;
+	}
 
     public String getGoPassword() {
         return goPassword;
@@ -233,6 +244,11 @@ public class Rules {
         if (config.hasPath("password")) {
             password = config.getString("password");
         }
+        
+        String goAccessToken = null;
+        if (config.hasPath("accessToken")) {
+        	goAccessToken = config.getString("accessToken");
+        }
 
         boolean displayConsoleLogLinks = true;
         if (config.hasPath("display-console-log-links")) {
@@ -268,7 +284,6 @@ public class Rules {
         }
 
         final PipelineRule defaultRule = PipelineRule.fromConfig(config.getConfig("default"), channel);
-
         List<PipelineRule> pipelineRules = Lists.map((List<Config>) config.getConfigList("pipelines"), new Function<Config, PipelineRule>() {
             public PipelineRule apply(Config input) {
                 return merge(PipelineRule.fromConfig(input), defaultRule);
@@ -286,6 +301,7 @@ public class Rules {
                 .setGoAPIServerHost(apiServerHost)
                 .setGoLogin(login)
                 .setGoPassword(password)
+                .setGoAccessToken(goAccessToken)
                 .setDisplayConsoleLogLinks(displayConsoleLogLinks)
                 .setDisplayMaterialChanges(displayMaterialChanges)
                 .setProcessAllRules(processAllRules)

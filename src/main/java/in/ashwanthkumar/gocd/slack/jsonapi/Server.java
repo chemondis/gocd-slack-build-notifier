@@ -55,7 +55,11 @@ public class Server {
                     + DatatypeConverter.printBase64Binary(userpass.getBytes());
             request.setRequestProperty("Authorization", basicAuth);
         }
-
+        
+        if (isNotEmpty(mRules.getGoAccessToken())) {
+        	request.setRequestProperty("Authorization", mRules.getGoAccessToken());
+        }
+        
         request.connect();
 
         return httpConnectionUtil.responseToJson(request.getContent());

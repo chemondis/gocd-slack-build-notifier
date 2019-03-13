@@ -1,15 +1,21 @@
 package in.ashwanthkumar.gocd.slack;
 
-import com.google.gson.annotations.SerializedName;
-import com.thoughtworks.go.plugin.api.logging.Logger;
-import in.ashwanthkumar.gocd.slack.jsonapi.*;
-import in.ashwanthkumar.gocd.slack.ruleset.Rules;
-import in.ashwanthkumar.utils.lang.StringUtils;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+import com.thoughtworks.go.plugin.api.logging.Logger;
+
+import in.ashwanthkumar.gocd.slack.jsonapi.History;
+import in.ashwanthkumar.gocd.slack.jsonapi.MaterialRevision;
+import in.ashwanthkumar.gocd.slack.jsonapi.Pipeline;
+import in.ashwanthkumar.gocd.slack.jsonapi.Server;
+import in.ashwanthkumar.gocd.slack.jsonapi.ServerFactory;
+import in.ashwanthkumar.gocd.slack.jsonapi.Stage;
+import in.ashwanthkumar.gocd.slack.ruleset.Rules;
+import in.ashwanthkumar.utils.lang.StringUtils;
 
 public class GoNotificationMessage {
     private Logger LOG = Logger.getLoggerFor(GoNotificationMessage.class);
@@ -30,6 +36,9 @@ public class GoNotificationMessage {
      * returned by the server.
      */
     static public class BuildDetailsNotFoundException extends Exception {
+    	
+        private static final long serialVersionUID = 1L;
+
         public BuildDetailsNotFoundException(String pipelineName,
                                              int pipelineCounter)
         {
