@@ -155,7 +155,7 @@ public class SlackPipelineListener extends PipelineListener {
             List<String> slackOwners = Lists.map(rule.getOwners(), new Function<String, String>() {
                 @Override
                 public String apply(String input) {
-                    return String.format("<@%s>", input);
+                    return String.format("<%s>", input);
                 }
             });
             buildAttachment.addField(new SlackAttachment.Field("Owners", Lists.mkString(slackOwners, ","), true));
