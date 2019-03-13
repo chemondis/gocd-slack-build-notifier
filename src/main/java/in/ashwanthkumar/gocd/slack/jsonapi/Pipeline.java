@@ -1,11 +1,11 @@
 package in.ashwanthkumar.gocd.slack.jsonapi;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Pipeline {
     @SerializedName("id")
@@ -42,7 +42,7 @@ public class Pipeline {
      */
     public List<MaterialRevision> rootChanges(Server server)
             throws MalformedURLException, IOException {
-        List result = new ArrayList();
+        List<MaterialRevision> result = new ArrayList<>();
         addChangesRecursively(server, result);
         return result;
     }

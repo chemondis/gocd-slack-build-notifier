@@ -1,13 +1,11 @@
 package in.ashwanthkumar.gocd.slack.ruleset;
 
-import com.thoughtworks.go.plugin.api.logging.Logger;
+import java.io.File;
+
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import java.io.File;
-
 public class RulesReader {
-    private Logger LOG = Logger.getLoggerFor(RulesReader.class);
 
     public static Rules read() {
         return new RulesReader().load();

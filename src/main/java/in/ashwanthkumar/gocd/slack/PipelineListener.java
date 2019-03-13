@@ -1,12 +1,12 @@
 package in.ashwanthkumar.gocd.slack;
 
+import java.util.List;
+
 import com.thoughtworks.go.plugin.api.logging.Logger;
+
 import in.ashwanthkumar.gocd.slack.ruleset.PipelineRule;
 import in.ashwanthkumar.gocd.slack.ruleset.PipelineStatus;
 import in.ashwanthkumar.gocd.slack.ruleset.Rules;
-import in.ashwanthkumar.utils.lang.option.Option;
-
-import java.util.List;
 
 abstract public class PipelineListener {
     private Logger LOG = Logger.getLoggerFor(PipelineListener.class);

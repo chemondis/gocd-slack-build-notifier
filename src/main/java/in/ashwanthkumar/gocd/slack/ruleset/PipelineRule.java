@@ -1,15 +1,17 @@
 package in.ashwanthkumar.gocd.slack.ruleset;
 
+import static in.ashwanthkumar.utils.lang.StringUtils.isEmpty;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.typesafe.config.Config;
+
 import in.ashwanthkumar.utils.collections.Iterables;
 import in.ashwanthkumar.utils.collections.Lists;
-import in.ashwanthkumar.utils.collections.Sets;
 import in.ashwanthkumar.utils.func.Predicate;
 import in.ashwanthkumar.utils.lang.StringUtils;
-
-import java.util.*;
-
-import static in.ashwanthkumar.utils.lang.StringUtils.isEmpty;
 
 public class PipelineRule {
     private String nameRegex;
