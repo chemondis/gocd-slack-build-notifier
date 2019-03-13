@@ -36,10 +36,10 @@ public class GoNotificationMessage {
      * returned by the server.
      */
     static public class BuildDetailsNotFoundException extends Exception {
+    	
+        private static final long serialVersionUID = 1L;
 
-    	private static final long serialVersionUID = 1L;
-
-		public BuildDetailsNotFoundException(String pipelineName,
+        public BuildDetailsNotFoundException(String pipelineName,
                                              int pipelineCounter)
         {
             super(String.format("could not find details for %s/%d",
